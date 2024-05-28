@@ -1,6 +1,7 @@
 import React from 'react';
 import { 
   View,
+  Image,
   Pressable,
   StyleSheet,
   Text
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#333333',
     justifyContent: 'center',
     margin: 10,
-  },
+},
   button: {
     fontSize: 22,
     padding: 10,
@@ -51,8 +52,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 210,
+    height: 384,
     borderRadius: 20,
   },
   regularText: {
