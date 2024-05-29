@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   View,
   Alert,
@@ -8,9 +8,28 @@ import {
   Text,
   TextInput
 } from 'react-native';
+import { validateEmail } from '../utils';
 
 const SubscribeScreen = () => {
+  const [subscribeEnabled, setSubscribeEnabled] = useState(false);
   const [email, onChangeEmail] = useState('');
+  // @ref https://stackoverflow.com/questions/56247433/how-to-use-setstate-callback-on-react-hooks
+  useEffect(() => {
+    setSubscribeEnabled(validateEmail(email)); 
+    console.log(email);
+    return;
+  }, [email])
+
+  //  @ref https://reactnative.dev/docs/alert
+  const createSubscribeAlert = () =>
+      // Alert.prompt('hi', 'Thanks for subscribing,\nstay tuned!', text =>
+      //   console.log('You entered ' + text)
+      // );
+      Alert.alert(null, 'Thanks for subscribing,\nstay tuned!', [
+        {
+          text: 'OK', 
+          onPress: () => console.log('OK Pressed')},
+      ]);
 
   return (
     <View style={styles.container}>
@@ -32,9 +51,12 @@ const SubscribeScreen = () => {
           placeholder={'Input your email'}
           keyboardType={'email-address'}
         />
-        <Pressable
-            onPress={() => navigation.navigate('Subscribe')}
-            style={styles.button}>
+        <Pressable disabled={!subscribeEnabled}
+            onPress={() => {
+              console.log('onPressed.');
+              createSubscribeAlert();
+            }}
+            style={subscribeEnabled? styles.button : styles.buttonDisabled}>
             <Text style={styles.buttonText}>Subscribe</Text>
         </Pressable>
       </View>
@@ -64,6 +86,14 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: '#495E57',
     borderColor: '#495E57',
+    borderWidth: 2,
+    borderRadius: 10,
+  },
+  buttonDisabled: {
+    fontSize: 22,
+    margin: 10,
+    backgroundColor: '#888888',
+    borderColor: '#888888',
     borderWidth: 2,
     borderRadius: 10,
   },
