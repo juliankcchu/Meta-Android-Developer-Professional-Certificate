@@ -7,6 +7,7 @@ import {
   Text
 } from 'react-native';
 
+// Return a View of Welcome screen
 const WelcomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>

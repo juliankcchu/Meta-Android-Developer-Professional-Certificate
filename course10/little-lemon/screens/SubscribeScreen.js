@@ -10,26 +10,28 @@ import {
 } from 'react-native';
 import { validateEmail } from '../utils';
 
+// Return a View of Subscribe screen
 const SubscribeScreen = () => {
-  const [subscribeEnabled, setSubscribeEnabled] = useState(false);
   const [email, onChangeEmail] = useState('');
+
+  // button "Subscribe" is depending on email value validity.
   // @ref https://stackoverflow.com/questions/56247433/how-to-use-setstate-callback-on-react-hooks
+  const [subscribeEnabled, setSubscribeEnabled] = useState(false);
   useEffect(() => {
     setSubscribeEnabled(validateEmail(email)); 
     console.log(email);
     return;
   }, [email])
 
-  //  @ref https://reactnative.dev/docs/alert
+  // prompt a Alert dialog when "subscribe" successful.
+  // @ref https://reactnative.dev/docs/alert
   const createSubscribeAlert = () =>
-      // Alert.prompt('hi', 'Thanks for subscribing,\nstay tuned!', text =>
-      //   console.log('You entered ' + text)
-      // );
-      Alert.alert(null, 'Thanks for subscribing,\nstay tuned!', [
-        {
-          text: 'OK', 
-          onPress: () => console.log('OK Pressed')},
-      ]);
+    Alert.alert(null, 'Thanks for subscribing,\nstay tuned!', [
+      {
+        text: 'OK', 
+        onPress: () => console.log('OK Pressed')
+      },
+    ]);
 
   return (
     <View style={styles.container}>
@@ -56,8 +58,9 @@ const SubscribeScreen = () => {
               console.log('onPressed.');
               createSubscribeAlert();
             }}
-            style={subscribeEnabled? styles.button : styles.buttonDisabled}>
-            <Text style={styles.buttonText}>Subscribe</Text>
+            style={subscribeEnabled? styles.button : styles.buttonDisabled}
+          >
+          <Text style={styles.buttonText}>Subscribe</Text>
         </Pressable>
       </View>
     </View>
